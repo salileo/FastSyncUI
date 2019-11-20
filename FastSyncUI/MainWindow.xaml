@@ -1,0 +1,132 @@
+﻿<Window x:Class="FastSyncUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="FastSync" Height="500" Width="600" Icon="main.ico">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.6*"/>
+            <ColumnDefinition Width="0.4*"/>
+        </Grid.ColumnDefinitions>
+
+        <TabControl Name="Tabs" Grid.Row="0" Grid.Column="0">
+            <TabItem Header="Running">
+                <ListBox Name="RunningList"/>
+            </TabItem>
+            <TabItem Header="Pending">
+                <ListBox Name="PendingList"/>
+            </TabItem>
+            <TabItem Header="Completed">
+                <ListBox Name="CompletedList"/>
+            </TabItem>
+            <TabItem Header="Total">
+                <ListBox Name="TotalList"/>
+            </TabItem>
+            <TabItem Name="FailedTab" Header="Failed">
+                <ListBox Name="FailedList"/>
+            </TabItem>
+        </TabControl>
+
+        <Button Name="SyncButton" Grid.Row="1" Grid.Column="0" Width="100" Margin="5" Content="Start Sync" Click="SyncButtonClick"/>
+
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" VerticalAlignment="Center" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="2" Margin="0,0,0,30" Width ="40" HorizontalAlignment="Right" Click="HelpButtonClick">Help</Button>
+            
+            <TextBlock Grid.Row="1" Grid.Column="0"><Bold>Client Name</Bold></TextBlock>
+            <TextBlock Text=" : " Grid.Row="1" Grid.Column="1"/>
+            <TextBlock Name="ClientName" Grid.Row="1" Grid.Column="2"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0"><Bold>CL Number</Bold></TextBlock>
+            <TextBlock Text=" : " Grid.Row="2" Grid.Column="1"/>
+            <TextBlock Name="CLNumber" Grid.Row="2" Grid.Column="2"/>
+
+            <TextBlock Grid.Row="3" Grid.Column="0"><Bold>Force Sync</Bold></TextBlock>
+            <TextBlock Text=" : " Grid.Row="3" Grid.Column="1"/>
+            <TextBlock Name="ForceSync" Grid.Row="3" Grid.Column="2"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="0"><Bold>Clobber Writeable</Bold></TextBlock>
+            <TextBlock Text=" : " Grid.Row="4" Grid.Column="1"/>
+            <TextBlock Name="ClobberWriteable" Grid.Row="4" Grid.Column="2"/>
+
+            <TextBlock Grid.Row="5" Grid.Column="0"><Bold>File Count Total</Bold></TextBlock>
+            <TextBlock Text=" : " Grid.Row="5" Grid.Column="1"/>
+            <TextBlock Name="FileCountTotal" Grid.Row="5" Grid.Column="2"/>
+
+            <TextBlock Grid.Row="6" Grid.Column="0" Margin="0,0,0,20"><Bold>File Count Left</Bold></TextBlock>
+            <TextBlock Text=" : " Grid.Row="6" Grid.Column="1" Margin="0,0,0,20"/>
+            <TextBlock Name="FileCountLeft" Grid.Row="6" Grid.Column="2" Margin="0,0,0,20"/>
+
+            <TextBlock Grid.Row="7" Grid.Column="0"><Bold>Client Root</Bold></TextBlock>
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="8" Grid.ColumnSpan="3">
+                <TextBlock Name="ClientRoot" TextWrapping="Wrap" Width="180"/>
+            </ScrollViewer>
+
+            <TextBlock Grid.Row="9" Grid.Column="0"><Bold>Sync Folder</Bold></TextBlock>
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="10" Grid.ColumnSpan="3">
+                <TextBlock Name="SyncFolder" TextWrapping="Wrap" Width="180"/>
+            </ScrollViewer>
+
+            <GroupBox Grid.Row="11" Grid.ColumnSpan="3" Header="Advanced Settings" Padding="5" Margin="0,10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Process threshold" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="5,0"/>
+                    <TextBox Name="ProcessThreshold" Grid.Row="0" Grid.Column="1"/>
+                    <Border Background="Black" Grid.Row="0" Grid.Column="2" ToolTip="This is the maximum number of simultaneous syncs that ca be fired. Please note that a high number could affect system performance or even break the simultaneous sync logic from server side.">
+                        <TextBlock Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"><Bold>?</Bold></TextBlock>                        
+                    </Border>
+
+                    <TextBlock Text="Files threshold" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="5,0"/>
+                    <TextBox Name="FilesThreshold" Grid.Row="1" Grid.Column="1"/>
+                    <Border Background="Black" Grid.Row="1" Grid.Column="2" ToolTip="This is the minimum number of files that should be getting synced in a given folder to trigger the breaking of that given folder into multiple syncs.">
+                        <TextBlock Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"><Bold>?</Bold></TextBlock>
+                    </Border>
+
+                    <TextBlock Text="Batch size" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="5,0"/>
+                    <TextBox Name="BatchSize" Grid.Row="2" Grid.Column="1"/>
+                    <Border Background="Black" Grid.Row="2" Grid.Column="2" ToolTip="This is the size of a sync that is tried to be achieved by combining a few folders to avoid very small sized syncs.">
+                        <TextBlock Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"><Bold>?</Bold></TextBlock>
+                    </Border>
+
+                    <CheckBox Name="ShowWindows" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,0" HorizontalAlignment="Center" Content="Show console windows" Click="ShowWindows_Clicked"/>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>
